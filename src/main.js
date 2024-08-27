@@ -98,11 +98,3 @@ class Companion extends Character {
 const Robin = new Adventurer('Robin', 'Healer')
 const Leo = new Companion('Leo', 'Cat')
 const Frank = new Companion('Frank', 'Flear')
-
-console.log(Robin)
-
-
-console.log('////////////////////// Part 4 ////////////////////// \n')
-
-console.log(Character.health)
-console.log(Adventurer.roles)
