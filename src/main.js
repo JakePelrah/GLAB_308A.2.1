@@ -20,16 +20,15 @@ const adventurer = {
 
 
 // log inventory
-for (const item of adventurer.inventory) {
-    console.log(item)
-}
-// call roll a few times
+// for (const item of adventurer.inventory) {
+//     console.log(item)
+// }
+// // call roll a few times
 
-for (let i = 0; i < 3; i++) {
-    adventurer.roll()
-}
+// for (let i = 0; i < 3; i++) {
+//     adventurer.roll()
+// }
 
-console.log('////////////////////// Part 2 ////////////////////// \n')
 
 class Character {
     constructor(name) {
@@ -42,7 +41,7 @@ class Character {
 
     roll(mod = 0) {
         const result = Math.floor(Math.random() * 20) + 1 + mod;
-        console.log(`${this.name} rolled a ${result}.`)
+        return result
     }
 }
 
@@ -55,11 +54,10 @@ robin.companion.companion = new Character('Frank')
 robin.companion.companion.type = 'Flea'
 robin.companion.companion.inventory = ['small hat', 'sunglasses']
 
-robin.roll()
-robin.companion.roll()
-robin.companion.companion.roll()
+// robin.roll()
+// robin.companion.roll()
+// robin.companion.companion.roll()
 
-console.log('////////////////////// Part 3 ////////////////////// \n')
 
 
 class Adventurer extends Character {
@@ -86,6 +84,31 @@ class Adventurer extends Character {
         console.log(`${this.name} is scouting ahead...`)
         super.roll()
     }
+
+    duel(adventurer) {
+
+        while (adventurer.health > 50 && this.health > 50) {
+            const adventurerRoll = adventurer.roll()
+            const thisRoll = this.roll()
+
+            if(adventurerRoll < thisRoll){
+                adventurer.health-=1
+            }
+            else if(adventurerRoll > thisRoll){
+                this.health-=1
+            }
+        
+            console.log(`
+${adventurer.name} rolled a ${adventurerRoll}
+${this.name} rolled a ${thisRoll}
+${adventurer.name} health: ${adventurer.health}
+${this.name} health: ${this.health}\n`)
+        }
+
+
+        const winner = adventurer.health > this.health ? adventurer : this
+        console.log(`The winner with ${winner.health} health is ${winner.name}`)
+    }
 }
 
 class Companion extends Character {
@@ -95,6 +118,8 @@ class Companion extends Character {
     }
 }
 
-const Robin = new Adventurer('Robin', 'Healer')
-const Leo = new Companion('Leo', 'Cat')
-const Frank = new Companion('Frank', 'Flear')
+
+const Robin = new Adventurer('Robin', 'Fighter')
+const Batman = new Adventurer('Batman', 'Fighter')
+
+Batman.duel(Robin)
